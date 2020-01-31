@@ -18,7 +18,7 @@ import {
 import "./App.css";
 import moment from "moment";
 import axios from "axios";
-import { API_PREFIX, LOGIN_PREFIX } from "./Constant";
+import { API_PREFIX, RoutePaths } from "./Constant";
 const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
@@ -29,7 +29,7 @@ http.interceptors.response.use(
   },
   error => {
     if (error.response && error.response.status === 401) {
-      const loginurl = API_PREFIX + LOGIN_PREFIX;
+      const loginurl = API_PREFIX + RoutePaths.LOGIN_PREFIX;
       console.log("Exception", error);
       //location.pathname = loginurl.toString();
     }

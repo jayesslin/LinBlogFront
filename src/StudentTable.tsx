@@ -35,7 +35,7 @@ export class StudentTable extends React.Component<any, any> {
       }
     ];
     return (
-      <Table dataSource={data}>
+      <Table dataSource={data} style={{ height: 550 }}>
         <ColumnGroup title="Name">
           <Column title="First Name" dataIndex="firstName" key="firstName" />
           <Column title="Last Name" dataIndex="lastName" key="lastName" />

@@ -7,16 +7,28 @@ import {
   Row,
   Timeline,
   Descriptions,
-  Badge
+  Badge,
+  Col
 } from "antd";
 const { Step } = Steps;
 const { Header, Footer, Sider, Content } = Layout;
-export class ToolsDemo extends React.Component<any, any> {
+interface ToolsDemoState {
+  current: number;
+}
+export class ToolsDemo extends React.Component<any, ToolsDemoState> {
   constructor(props: { location: string }) {
     super(props);
+    this.state = {
+      //组件初始化，构造步骤条当前为0
+      current: 0
+    };
   }
-
+  onStepsChange = (current: number) => {
+    console.log("onChange:", current);
+    this.setState({ current });
+  };
   render() {
+    let { current } = this.state;
     const bread = (
       <Breadcrumb>
         <Breadcrumb.Item href="">
@@ -30,7 +42,8 @@ export class ToolsDemo extends React.Component<any, any> {
       </Breadcrumb>
     );
     const ProcessSteps = (
-      <Steps>
+      //可用导航类的步骤条替换
+      <Steps current={current} onChange={this.onStepsChange}>
         <Step status="finish" title="Login" icon={<Icon type="user" />} />
         <Step
           status="finish"
@@ -39,6 +52,12 @@ export class ToolsDemo extends React.Component<any, any> {
         />
         <Step status="process" title="Pay" icon={<Icon type="loading" />} />
         <Step status="wait" title="Done" icon={<Icon type="smile-o" />} />
+        <Step title="材料" icon={<Icon type="smile-o" />} />
+        <Step title="签证" icon={<Icon type="smile-o" />} />
+        <Step title="各类demo" icon={<Icon type="smile-o" />} />
+        <Step title="可点击" icon={<Icon type="smile-o" />} />
+        <Step title="Done" icon={<Icon type="smile-o" />} />
+        <Step title="Done" icon={<Icon type="smile-o" />} />
       </Steps>
     );
     const TimeLine = (
@@ -71,37 +90,10 @@ export class ToolsDemo extends React.Component<any, any> {
         </Timeline.Item>
       </Timeline>
     );
-    const StudentDesc = (
-      <Descriptions title="User Info" bordered>
-        <Descriptions.Item label="Product">Cloud Database</Descriptions.Item>
-        <Descriptions.Item label="Billing Mode">Prepaid</Descriptions.Item>
-        <Descriptions.Item label="Automatic Renewal">YES</Descriptions.Item>
-        <Descriptions.Item label="Order time">
-          2018-04-24 18:00:00
-        </Descriptions.Item>
-        <Descriptions.Item label="Usage Time" span={2}>
-          2019-04-24 18:00:00
-        </Descriptions.Item>
-        <Descriptions.Item label="Status" span={3}>
-          <Badge status="processing" text="Running" />
-        </Descriptions.Item>
-        <Descriptions.Item label="Negotiated Amount">$80.00</Descriptions.Item>
-        <Descriptions.Item label="Discount">$20.00</Descriptions.Item>
-        <Descriptions.Item label="Official Receipts">$60.00</Descriptions.Item>
-        <Descriptions.Item label="Config Info">
-          Data disk type: MongoDB
-          <br />
-          Database version: 3.4
-          <br />
-          Package: dds.mongo.mid
-          <br />
-          Storage space: 10 GB
-          <br />
-          Replication factor: 3
-          <br />
-          Region: East China 1<br />
-        </Descriptions.Item>
-      </Descriptions>
+    const responseEvent = (
+      <div style={{ background: "gray", height: "550px" }}>
+        当前是第 <b>{current}</b> 步
+      </div>
     );
     return (
       <Layout>
@@ -111,9 +103,10 @@ export class ToolsDemo extends React.Component<any, any> {
             <br />
             <Row style={{ background: "#FFF5EE" }}>{ProcessSteps}</Row>
             <br />
-            <Row style={{ background: "#FFFFE0" }}>{StudentDesc}</Row>
-            <br />
-            <Row style={{ background: "#F8F8FF" }}>{TimeLine}</Row>
+            <Row style={{ background: "#F8F8FF" }}>
+              <Col span={8}>{TimeLine}</Col>
+              <Col span={16}>{responseEvent}</Col>
+            </Row>
           </Content>
         </Layout>
       </Layout>
