@@ -19,69 +19,67 @@ import { ToolsDemo } from "./ToolsDemo";
 import { DemoSubmitPage } from "./DemoSubmitPage";
 import { RoutePaths } from "./Constant";
 import { AccountForm } from "./AccountForm";
-
+import { BlogHome } from "./blog/BlogHome";
+import { BlogAdd } from "./blog/BlogAdd";
+import { BlogDetail } from "./blog/BlogDetail";
 const { Header, Content, Footer } = Layout;
-axios.defaults.baseURL = "http://localhost:8001";
-axios
-  .get("/ping")
-  .then(function(response) {
-    console.log("链接houduan：", response);
-  })
-  .catch(function(error) {
-    console.log("请求失败", error);
-  });
-
 export class App extends React.Component<any, any> {
   render() {
     return (
       <div>
         <BrowserRouter>
           <Layout>
-            <Header style={{ background: "#fff" }}>
-              <Menu
-                mode="horizontal"
-                theme="light"
-                defaultSelectedKeys={[RoutePaths.DASHBOARD]} //可变
-                style={{ lineHeight: "64px" }}
-              >
-                <Menu.Item key={RoutePaths.DASHBOARD}>
-                  <Link to={RoutePaths.DASHBOARD}>
-                    <Icon type="tag" />
-                    表单一
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key={RoutePaths.DEMOSUBMITPAGE}>
-                  <Link to={RoutePaths.DEMOSUBMITPAGE}>
-                    <Icon type="tags" />
-                    表单二
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key={RoutePaths.STUDENTTABLE}>
-                  <Link to={RoutePaths.STUDENTTABLE}>
-                    <Icon type="table" />
-                    老师页面表格
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key={RoutePaths.TOOLSDEMO}>
-                  <Link to={RoutePaths.TOOLSDEMO}>
-                    <Icon type="deployment-unit" />
-                    学生页面展示
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key={RoutePaths.Student_Form}>
-                  <Link to={RoutePaths.Student_Form}>
-                    <Icon type="form" />
-                    个人页面展示
-                  </Link>
-                </Menu.Item>
-              </Menu>
-            </Header>
+            {/*<Header style={{ background: "#fff" }}>*/}
+            {/*  <Menu*/}
+            {/*    mode="horizontal"*/}
+            {/*    theme="light"*/}
+            {/*    defaultSelectedKeys={[RoutePaths.BLOG]} //可变*/}
+            {/*    style={{ lineHeight: "64px" }}*/}
+            {/*  >*/}
+            {/*    /!*<Menu.Item key={RoutePaths.DASHBOARD}>*!/*/}
+            {/*    /!*  <Link to={RoutePaths.DASHBOARD}>*!/*/}
+            {/*    /!*    <Icon type="tag" />*!/*/}
+            {/*    /!*    表单一*!/*/}
+            {/*    /!*  </Link>*!/*/}
+            {/*    /!*</Menu.Item>*!/*/}
+            {/*    /!*<Menu.Item key={RoutePaths.DEMOSUBMITPAGE}>*!/*/}
+            {/*    /!*  <Link to={RoutePaths.DEMOSUBMITPAGE}>*!/*/}
+            {/*    /!*    <Icon type="tags" />*!/*/}
+            {/*    /!*    表单二*!/*/}
+            {/*    /!*  </Link>*!/*/}
+            {/*    /!*</Menu.Item>*!/*/}
+            {/*    /!*<Menu.Item key={RoutePaths.STUDENTTABLE}>*!/*/}
+            {/*    /!*  <Link to={RoutePaths.STUDENTTABLE}>*!/*/}
+            {/*    /!*    <Icon type="table" />*!/*/}
+            {/*    /!*    老师页面表格*!/*/}
+            {/*    /!*  </Link>*!/*/}
+            {/*    /!*</Menu.Item>*!/*/}
+            {/*    /!*<Menu.Item key={RoutePaths.TOOLSDEMO}>*!/*/}
+            {/*    /!*  <Link to={RoutePaths.TOOLSDEMO}>*!/*/}
+            {/*    /!*    <Icon type="deployment-unit" />*!/*/}
+            {/*    /!*    学生页面展示*!/*/}
+            {/*    /!*  </Link>*!/*/}
+            {/*    /!*</Menu.Item>*!/*/}
+            {/*    /!*<Menu.Item key={RoutePaths.Student_Form}>*!/*/}
+            {/*    /!*  <Link to={RoutePaths.Student_Form}>*!/*/}
+            {/*    /!*    <Icon type="form" />*!/*/}
+            {/*    /!*    个人页面展示*!/*/}
+            {/*    /!*  </Link>*!/*/}
+            {/*    /!*</Menu.Item>*!/*/}
+            {/*    <Menu.Item key={RoutePaths.BLOG}>*/}
+            {/*      <Link to={RoutePaths.BLOG}>*/}
+            {/*        <Icon type="font-size" />*/}
+            {/*        Lin BLOG*/}
+            {/*      </Link>*/}
+            {/*    </Menu.Item>*/}
+            {/*  </Menu>*/}
+            {/*</Header>*/}
             <Content style={{ padding: "0 50px" }}>
               <div style={{ background: "#fff", padding: 24, minHeight: 280 }}>
                 <Switch>
                   <PrivateRoute
                     path={RoutePaths.HOME}
-                    component={DashBoard}
+                    component={BlogHome}
                     exact
                   />
                   <PrivateRoute
@@ -103,6 +101,12 @@ export class App extends React.Component<any, any> {
                   <PrivateRoute
                     path={RoutePaths.Student_Form}
                     component={AccountForm}
+                  />
+                  <PrivateRoute path={RoutePaths.BLOG} component={BlogHome} />
+                  <PrivateRoute path={RoutePaths.ADDBLOG} component={BlogAdd} />
+                  <PrivateRoute
+                    path={RoutePaths.BlogDetail}
+                    component={BlogDetail}
                   />
                 </Switch>
               </div>
