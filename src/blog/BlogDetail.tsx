@@ -46,6 +46,13 @@ export class BlogDetail extends React.Component<any, BlogDetailState> {
       create_time: ""
     };
   }
+  componentWillMount(): void {
+    this.GetBlog();
+  }
+
+  componentDidMount(): void {
+    this.GetBlog();
+  }
 
   GetBlog = () => {
     const { id } = this.state;
@@ -73,8 +80,8 @@ export class BlogDetail extends React.Component<any, BlogDetailState> {
   };
 
   render() {
-    this.GetBlog();
     const { id, blog_title, blog_content, create_time } = this.state;
+    console.log("详细页面", id);
     const MarkedTitle = "# " + blog_title;
     const MarkedCreate = "创建时间: " + create_time;
     const MarkedContent = blog_content;

@@ -11,8 +11,11 @@ import {
   Col
 } from "antd";
 import "./Blog.css";
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
 import { http, LocalUrl, RequestPaths, RoutePaths } from "../Constant";
 import { Redirect } from "react-router-dom";
+import MarkdownEditor from "@uiw/react-markdown-editor";
 const { TextArea } = Input;
 const InputGroup = Input.Group;
 const { Option } = Select;
@@ -22,6 +25,8 @@ export interface BlogAddState {
   blog_content: string;
   phone: string;
   wechatname: string;
+  markdownValue:any;
+  blog_type:string[]
 }
 export class BlogAdd extends React.Component<any, BlogAddState> {
   constructor(props: { location: string }) {
@@ -31,7 +36,9 @@ export class BlogAdd extends React.Component<any, BlogAddState> {
       blog_author: "",
       blog_content: "",
       phone: "",
-      wechatname: ""
+      wechatname: "",
+      markdownValue:"",
+      blog_type:[],
     };
   }
   upload = () => {
@@ -93,50 +100,54 @@ export class BlogAdd extends React.Component<any, BlogAddState> {
     const { value } = e.target;
     this.setState({ wechatname: value });
   };
+  updateMarkdown(value: any) {
+    console.log(value);
+    this.setState({ blog_content: value });
+  }
+  handleSelectChange=(value:any)=> {
+    this.setState({ blog_type: value });
+  };
 
-  render():
-    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-    | string
-    | number
-    | {}
-    | React.ReactNodeArray
-    | React.ReactPortal
-    | boolean
-    | null
-    | undefined {
+  getSelectionChildren=()=>{
+    const ss= <Select
+        mode="multiple"
+        style={{ width: '100%' }}
+        placeholder="Select Blog Types"
+        defaultValue={['personal']}
+        onChange={this.handleSelectChange}
+        optionLabelProp="label"
+    >
+      <Option value="personal" label="Personal">
+       Personal(个人）
+      </Option>
+      <Option value="work" label="Work">
+        Work (工作)
+      </Option>
+      <Option value="Tech" label="Tech">
+
+        Tech (技术)
+      </Option>
+      <Option value="algorithm" label="Algorithm">
+
+        Algorithm (算法)
+      </Option>
+    </Select>;
+    return ss
+  }
+  render(){
+    const Blogtype =this.getSelectionChildren();
     return (
       <div>
         <Form layout={"vertical"}>
-          <Form.Item label="Title">
-            <Input onChange={this.handleBlogTitle} />
+          <Form.Item >
+            <Input size="large" placeholder={"Type some words about this blog"} onChange={this.handleBlogTitle} />
           </Form.Item>
-          {/*<Form.Item label="NetName">*/}
-          {/*    <Input  onChange={this.handleBlogAuthor} placeholder="Jayess"/>*/}
-          {/*</Form.Item>*/}
-          {/*<Form.Item label="WeChat">*/}
-          {/*    <Input onChange={this.handlewechatname} placeholder="xxxx" />*/}
-          {/*</Form.Item>*/}
-          {/*<Form.Item label="Phone">*/}
-          {/*    <Input  onChange={this.handlephone} placeholder="133xxxx"/>*/}
-          {/*</Form.Item>*/}
-          <Form.Item label="Content">
-            <TextArea
-              //value={value}
-              onChange={this.handleBlogContent}
-              placeholder="..."
-              autoSize={{ minRows: 18, maxRows: 200 }}
-            />
+          <Form.Item label="CONTENT">
+            <SimpleMDE onChange={(value)=>this.updateMarkdown(value)} />
           </Form.Item>
-          {/*<Form.Item label="Cheating Pic">*/}
-
-          {/*    <Upload.Dragger name="files" action="/upload.do">*/}
-          {/*        <p className="ant-upload-drag-icon">*/}
-          {/*            <Icon type="inbox" />*/}
-          {/*        </p>*/}
-          {/*        <p className="ant-upload-text">Click or Drag File Here</p>*/}
-          {/*        /!*<p className="ant-upload-hint">支持多个文件上传</p>*!/*/}
-          {/*    </Upload.Dragger>*/}
-          {/*</Form.Item>*/}
+          <Form.Item label="BLOG CLASS">
+            {Blogtype}
+          </Form.Item>
           <Form.Item>
             <Row type={"flex"} justify={"center"}>
               <Col span={2}>
@@ -163,6 +174,7 @@ export class BlogAdd extends React.Component<any, BlogAddState> {
               <Col span={2}></Col>
             </Row>
           </Form.Item>
+
         </Form>
 
         <BackTop>

@@ -29,51 +29,21 @@ export class App extends React.Component<any, any> {
       <div>
         <BrowserRouter>
           <Layout>
-            {/*<Header style={{ background: "#fff" }}>*/}
-            {/*  <Menu*/}
-            {/*    mode="horizontal"*/}
-            {/*    theme="light"*/}
-            {/*    defaultSelectedKeys={[RoutePaths.BLOG]} //可变*/}
-            {/*    style={{ lineHeight: "64px" }}*/}
-            {/*  >*/}
-            {/*    /!*<Menu.Item key={RoutePaths.DASHBOARD}>*!/*/}
-            {/*    /!*  <Link to={RoutePaths.DASHBOARD}>*!/*/}
-            {/*    /!*    <Icon type="tag" />*!/*/}
-            {/*    /!*    表单一*!/*/}
-            {/*    /!*  </Link>*!/*/}
-            {/*    /!*</Menu.Item>*!/*/}
-            {/*    /!*<Menu.Item key={RoutePaths.DEMOSUBMITPAGE}>*!/*/}
-            {/*    /!*  <Link to={RoutePaths.DEMOSUBMITPAGE}>*!/*/}
-            {/*    /!*    <Icon type="tags" />*!/*/}
-            {/*    /!*    表单二*!/*/}
-            {/*    /!*  </Link>*!/*/}
-            {/*    /!*</Menu.Item>*!/*/}
-            {/*    /!*<Menu.Item key={RoutePaths.STUDENTTABLE}>*!/*/}
-            {/*    /!*  <Link to={RoutePaths.STUDENTTABLE}>*!/*/}
-            {/*    /!*    <Icon type="table" />*!/*/}
-            {/*    /!*    老师页面表格*!/*/}
-            {/*    /!*  </Link>*!/*/}
-            {/*    /!*</Menu.Item>*!/*/}
-            {/*    /!*<Menu.Item key={RoutePaths.TOOLSDEMO}>*!/*/}
-            {/*    /!*  <Link to={RoutePaths.TOOLSDEMO}>*!/*/}
-            {/*    /!*    <Icon type="deployment-unit" />*!/*/}
-            {/*    /!*    学生页面展示*!/*/}
-            {/*    /!*  </Link>*!/*/}
-            {/*    /!*</Menu.Item>*!/*/}
-            {/*    /!*<Menu.Item key={RoutePaths.Student_Form}>*!/*/}
-            {/*    /!*  <Link to={RoutePaths.Student_Form}>*!/*/}
-            {/*    /!*    <Icon type="form" />*!/*/}
-            {/*    /!*    个人页面展示*!/*/}
-            {/*    /!*  </Link>*!/*/}
-            {/*    /!*</Menu.Item>*!/*/}
-            {/*    <Menu.Item key={RoutePaths.BLOG}>*/}
-            {/*      <Link to={RoutePaths.BLOG}>*/}
-            {/*        <Icon type="font-size" />*/}
-            {/*        Lin BLOG*/}
-            {/*      </Link>*/}
-            {/*    </Menu.Item>*/}
-            {/*  </Menu>*/}
-            {/*</Header>*/}
+            <Header style={{ background: "#fff" }}>
+              <Menu
+                mode="horizontal"
+                theme="light"
+                defaultSelectedKeys={[RoutePaths.BLOG]} //可变
+                style={{ lineHeight: "64px" }}
+              >
+                <Menu.Item key={RoutePaths.BLOG}>
+                  <Link to={RoutePaths.BLOG}>
+                    <Icon type="font-size" />
+                    Lin BLOG
+                  </Link>
+                </Menu.Item>
+              </Menu>
+            </Header>
             <Content style={{ padding: "0 50px" }}>
               <div style={{ background: "#fff", padding: 24, minHeight: 280 }}>
                 <Switch>

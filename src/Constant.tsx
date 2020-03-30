@@ -14,11 +14,12 @@ export const RoutePaths = {
   ADDBLOG: "/add",
   BlogDetail: "/page"
 };
-export const LocalUrl = "http://localhost:8001";
+export const LocalUrl = "http://localhost:8000";
+//export const LocalUrl = "http://localhost:8000";
 export const RequestPaths = {
   Get_Blog: "/api/blog/v1/getblog/",
   Add_Blog: "/api/blog/v1/upload/",
-  Get_Detail_Blog: "/api/blog/v1/page/"
+  Get_Detail_Blog: "/api/blog/v1/page"
 };
 export const http = axios.create();
 http.interceptors.response.use(
