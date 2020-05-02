@@ -17,9 +17,10 @@ export const RoutePaths = {
 export const LocalUrl = "http://localhost:8000";
 //export const LocalUrl = "http://localhost:8000";
 export const RequestPaths = {
-  Get_Blog: "/api/blog/v1/getblog/",
-  Add_Blog: "/api/blog/v1/upload/",
-  Get_Detail_Blog: "/api/blog/v1/page"
+  Get_Blog: "/api/blog/v1/blogs/",
+  Add_Blog: "/api/blog/v1/publish/",
+  Get_Detail_Blog: "/api/blog/v1/page",
+  Get_Blog_Types_Catagory: "/api/blog/v1/categories/"
 };
 export const http = axios.create();
 http.interceptors.response.use(

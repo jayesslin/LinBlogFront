@@ -12,6 +12,8 @@ import {
   Menu
 } from "antd";
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import {BlogTypesCategory} from "./BlogTypesCategory";
 const { Header } = Layout;
 export interface BlogHomeState {
   blog_data: any;
@@ -44,16 +46,18 @@ export class BlogHome extends Component<any, BlogHomeState> {
       .finally();
     return datas;
   };
-
+  getItemDescri=(content:any)=>{
+    return <ReactMarkdown source={content} />
+  }
   render() {
     const { blog_data } = this.state;
     console.log(blog_data);
+    const BlogTypes =  <BlogTypesCategory/>;
     let listData: any[] = [];
     for (let i = 0; i < blog_data.length; i++) {
       listData.push({
         href: "/page?id=" + blog_data[i].id,
         title: blog_data[i].blog_title,
-        avatar: "https://api.uomg.com/api/rand.avatar",
         description: "创建时间: " + blog_data[i].create_time,
         content:
           blog_data[i].blog_content != undefined
@@ -61,7 +65,6 @@ export class BlogHome extends Component<any, BlogHomeState> {
             : []
       });
     }
-
     // @ts-ignore
     const IconText = ({ type, text }) => (
       <span>
@@ -71,63 +74,37 @@ export class BlogHome extends Component<any, BlogHomeState> {
     );
     const bloglist = (
       <List
+
         itemLayout="vertical"
         size="large"
         pagination={{
           onChange: page => {
             console.log(page);
           },
-          pageSize: 6
+          pageSize: 7
         }}
         dataSource={listData}
         renderItem={item => (
           <List.Item
             key={item.title}
-            actions={[
-              <IconText type="star-o" text="156" key="list-vertical-star-o" />,
-              <IconText type="like-o" text="156" key="list-vertical-like-o" />,
-              <IconText type="message" text="2" key="list-vertical-message" />
-            ]}
-            // extra={
-            //   <img
-            //     width={272}
-            //     alt="logo"
-            //     src="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture"
-            //   />
-            // }
           >
             <List.Item.Meta
-              avatar={<Avatar src={item.avatar} />}
               title={<a href={item.href}>{item.title}</a>}
               description={item.description}
             />
-            {item.content}
+            {/*{this.getItemDescri(item.content)}*/}
           </List.Item>
         )}
       />
     );
     return (
-      <div>
+      <div style={{height:"60em"}}>
         <Row>
-          <Col span={4}>
-            <Row gutter={16}>
-              <Statistic
-                title="Feedback"
-                value={"9999+"}
-                prefix={<Icon type="like" />}
-              />
-            </Row>
-            <br />
-            <br />
-
-            <br />
-
-            {/*<Row>*/}
-            {/*  <Calendar fullscreen={false} />*/}
-            {/*</Row>*/}
+          <Col span={4} xs={4} sm={4} md={4} lg={4} xl={4} >
+            {BlogTypes}
           </Col>
-          <Col span={16}>{bloglist}</Col>
-          <Col span={4}>
+          <Col span={16} xs={16} sm={16} md={16} lg={16} xl={16}>{bloglist}</Col>
+          <Col span={4} xs={4} sm={4} md={4} lg={4} xl={4}>
             <Row type="flex" justify={"end"}>
               <Col>
                 <Link to={RoutePaths.ADDBLOG}>

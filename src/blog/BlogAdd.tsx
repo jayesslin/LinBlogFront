@@ -1,21 +1,10 @@
 import React from "react";
-import {
-  Form,
-  Select,
-  Input,
-  Button,
-  Icon,
-  message,
-  Row,
-  BackTop,
-  Col
-} from "antd";
+import {BackTop, Button, Col, Form, Icon, Input, message, Row, Select} from "antd";
 import "./Blog.css";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-import { http, LocalUrl, RequestPaths, RoutePaths } from "../Constant";
-import { Redirect } from "react-router-dom";
-import MarkdownEditor from "@uiw/react-markdown-editor";
+import {http, LocalUrl, RequestPaths, RoutePaths} from "../Constant";
+
 const { TextArea } = Input;
 const InputGroup = Input.Group;
 const { Option } = Select;
@@ -47,7 +36,8 @@ export class BlogAdd extends React.Component<any, BlogAddState> {
       blog_author,
       blog_content,
       wechatname,
-      phone
+      phone,
+        blog_type,
     } = this.state;
     if (blog_title == "") {
       message.warn("Please Input Title");
@@ -62,7 +52,8 @@ export class BlogAdd extends React.Component<any, BlogAddState> {
       blog_author: blog_author,
       blog_content: blog_content,
       wechatname: wechatname,
-      phone: phone
+      phone: phone,
+      blog_type:blog_type.toString()
     };
     const url = LocalUrl + RequestPaths.Add_Blog;
     console.log("para", para);
@@ -109,35 +100,33 @@ export class BlogAdd extends React.Component<any, BlogAddState> {
   };
 
   getSelectionChildren=()=>{
-    const ss= <Select
+    return <Select
         mode="multiple"
-        style={{ width: '100%' }}
+        style={{width: '100%'}}
         placeholder="Select Blog Types"
-        defaultValue={['personal']}
         onChange={this.handleSelectChange}
         optionLabelProp="label"
     >
-      <Option value="personal" label="Personal">
-       Personal(个人）
+      <Option value="Personal" label="Personal">
+        Personal(个人）
       </Option>
-      <Option value="work" label="Work">
+      <Option value="Work" label="Work">
         Work (工作)
       </Option>
       <Option value="Tech" label="Tech">
 
         Tech (技术)
       </Option>
-      <Option value="algorithm" label="Algorithm">
+      <Option value="Algorithm" label="Algorithm">
 
         Algorithm (算法)
       </Option>
-    </Select>;
-    return ss
-  }
+    </Select>
+  };
   render(){
     const Blogtype =this.getSelectionChildren();
     return (
-      <div>
+      <div style={{height:"60em"}}>
         <Form layout={"vertical"}>
           <Form.Item >
             <Input size="large" placeholder={"Type some words about this blog"} onChange={this.handleBlogTitle} />
@@ -162,6 +151,8 @@ export class BlogAdd extends React.Component<any, BlogAddState> {
               </Col>
               <Col span={20}>
                 <Row type={"flex"} justify={"center"}>
+                  <br/>
+                  <br/>
                   <Button
                     type="primary"
                     size={"large"}

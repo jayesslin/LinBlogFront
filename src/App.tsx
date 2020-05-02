@@ -29,12 +29,11 @@ export class App extends React.Component<any, any> {
       <div>
         <BrowserRouter>
           <Layout>
-            <Header style={{ background: "#fff" }}>
+            <Header style={{height:"5em", background: "#fff" }}>
               <Menu
                 mode="horizontal"
                 theme="light"
                 defaultSelectedKeys={[RoutePaths.BLOG]} //可变
-                style={{ lineHeight: "64px" }}
               >
                 <Menu.Item key={RoutePaths.BLOG}>
                   <Link to={RoutePaths.BLOG}>
@@ -44,7 +43,7 @@ export class App extends React.Component<any, any> {
                 </Menu.Item>
               </Menu>
             </Header>
-            <Content style={{ padding: "0 50px" }}>
+            <Content style={{ padding: "0 50px"  ,background: "#fff" }}>
               <div style={{ background: "#fff", padding: 24, minHeight: 280 }}>
                 <Switch>
                   <PrivateRoute

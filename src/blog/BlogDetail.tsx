@@ -86,9 +86,12 @@ export class BlogDetail extends React.Component<any, BlogDetailState> {
     const MarkedCreate = "创建时间: " + create_time;
     const MarkedContent = blog_content;
     return (
-      <div>
+      <div style={{padding:"0 7% 0 7%" ,minHeight:"60em", overflowY:"scroll"}}>
         <ReactMarkdown source={MarkedTitle} />
+
         <ReactMarkdown source={MarkedCreate} />
+        <hr/>
+        <br/>
         <ReactMarkdown source={MarkedContent} />
         <BackTop>
           <div className="ant-back-top-inner">UP</div>
