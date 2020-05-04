@@ -17,12 +17,14 @@ import {BlogTypesCategory} from "./BlogTypesCategory";
 const { Header } = Layout;
 export interface BlogHomeState {
   blog_data: any;
+  blog_type:string;
 }
 export class BlogHome extends Component<any, BlogHomeState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      blog_data: []
+      blog_data: [],
+      blog_type:""
     };
   }
   componentDidMount(): void {
@@ -46,17 +48,38 @@ export class BlogHome extends Component<any, BlogHomeState> {
       .finally();
     return datas;
   };
+  getBlogDataByType = (types:string) => {
+    const url = LocalUrl + RequestPaths.Get_Blog_By_Types;
+    let datas: [] = [];
+    const para: any = {
+      blog_type:types
+    };
+    http
+        .post(url,para)
+        .then(response => {
+          console.log("success：", response.data);
+          datas = response.data;
+          this.setState({
+            blog_data: response.data
+          });
+        })
+        .catch(err => {
+          console.log("failed", err);
+        })
+        .finally();
+    return datas;
+  };
   getItemDescri=(content:any)=>{
     return <ReactMarkdown source={content} />
   }
   render() {
     const { blog_data } = this.state;
     console.log(blog_data);
-    const BlogTypes =  <BlogTypesCategory/>;
+    const BlogTypes =  <BlogTypesCategory getBlogDataByType={this.getBlogDataByType}/>;
     let listData: any[] = [];
     for (let i = 0; i < blog_data.length; i++) {
       listData.push({
-        href: "/page?id=" + blog_data[i].id,
+        href: "/#/page?id=" + blog_data[i].id,
         title: blog_data[i].blog_title,
         description: "创建时间: " + blog_data[i].create_time,
         content:
@@ -73,16 +96,10 @@ export class BlogHome extends Component<any, BlogHomeState> {
       </span>
     );
     const bloglist = (
+        <div style={{height:"45em",overflowY:"scroll",scrollbarWidth:"none"}}>
       <List
-
         itemLayout="vertical"
         size="large"
-        pagination={{
-          onChange: page => {
-            console.log(page);
-          },
-          pageSize: 7
-        }}
         dataSource={listData}
         renderItem={item => (
           <List.Item
@@ -96,10 +113,11 @@ export class BlogHome extends Component<any, BlogHomeState> {
           </List.Item>
         )}
       />
+        </div>
     );
     return (
-      <div style={{height:"60em"}}>
-        <Row>
+      <div style={{height:"45em"}}>
+        <Row  style={{height:"100%"}}>
           <Col span={4} xs={4} sm={4} md={4} lg={4} xl={4} >
             {BlogTypes}
           </Col>

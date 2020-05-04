@@ -27,7 +27,7 @@ export class App extends React.Component<any, any> {
   render() {
     return (
       <div>
-        <BrowserRouter>
+        <HashRouter>
           <Layout>
             <Header style={{height:"5em", background: "#fff" }}>
               <Menu
@@ -82,7 +82,7 @@ export class App extends React.Component<any, any> {
             </Content>
             <Footer style={{ textAlign: "center" }}> Jayesslin @2020 </Footer>
           </Layout>
-        </BrowserRouter>
+        </HashRouter>
       </div>
     );
   }

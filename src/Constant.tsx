@@ -9,18 +9,18 @@ export const RoutePaths = {
   TOOLSDEMO: "/toolsdemo",
   DEMOSUBMITPAGE: "/demosubmitpage",
   Student_Form: "/studentform",
-
   BLOG: "/blog",
   ADDBLOG: "/add",
   BlogDetail: "/page"
 };
 export const LocalUrl = "http://localhost:8000";
-//export const LocalUrl = "http://localhost:8000";
+//export const LocalUrl = "http://111.229.118.87:8000";
 export const RequestPaths = {
   Get_Blog: "/api/blog/v1/blogs/",
   Add_Blog: "/api/blog/v1/publish/",
   Get_Detail_Blog: "/api/blog/v1/page",
-  Get_Blog_Types_Catagory: "/api/blog/v1/categories/"
+  Get_Blog_Types_Catagory: "/api/blog/v1/categories/",
+  Get_Blog_By_Types: "/api/blog/v1/types/"
 };
 export const http = axios.create();
 http.interceptors.response.use(

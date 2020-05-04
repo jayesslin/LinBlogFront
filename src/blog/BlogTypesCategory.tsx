@@ -1,7 +1,9 @@
 import React from "react";
 import { http, LocalUrl, RequestPaths} from "../Constant";
 import {List, message, Tag} from "antd";
-
+interface BlogTypesCategoryProps {
+    getBlogDataByType:any
+}
 interface BlogTypesCategoryState {
     blog_typs_cates:any
 }
@@ -36,7 +38,9 @@ export class BlogTypesCategory extends React.Component<any, BlogTypesCategorySta
             })
             .finally();
     };
-
+    getBlogByTypes =(types:string)=>{
+        this.props.getBlogDataByType(types);
+    }
     render() {
         const { blog_typs_cates } = this.state;
         let TypelistData: any[] = [];
@@ -59,10 +63,10 @@ export class BlogTypesCategory extends React.Component<any, BlogTypesCategorySta
                 renderItem={item => (
                     <List.Item
                         key={item.title}
-                        extra={<Tag style={{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }}>{item.count}</Tag>}
+                        extra={<Tag >{item.count}</Tag>}
                     >
                         <List.Item.Meta
-                            title={<a href={item.href}>{item.title}</a>}
+                            title={<a onClick={()=>this.getBlogByTypes(item.title)}>{item.title}</a>}
                         />
                         {/*{this.getItemDescri(item.content)}*/}
                     </List.Item>

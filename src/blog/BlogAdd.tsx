@@ -15,7 +15,8 @@ export interface BlogAddState {
   phone: string;
   wechatname: string;
   markdownValue:any;
-  blog_type:string[]
+  blog_type:string[];
+  blog_typs_cates:any;
 }
 export class BlogAdd extends React.Component<any, BlogAddState> {
   constructor(props: { location: string }) {
@@ -28,8 +29,13 @@ export class BlogAdd extends React.Component<any, BlogAddState> {
       wechatname: "",
       markdownValue:"",
       blog_type:[],
+      blog_typs_cates:"",
     };
   }
+  componentDidMount(): void {
+    this.GetBlogTypes()
+  }
+
   upload = () => {
     const {
       blog_title,
@@ -70,7 +76,24 @@ export class BlogAdd extends React.Component<any, BlogAddState> {
       })
       .finally();
   };
-
+  GetBlogTypes = () => {
+    const url = LocalUrl + RequestPaths.Get_Blog_Types_Catagory;
+    http
+        .get(url,)
+        .then(response => {
+          console.log("接口数据",response.data);
+          if (response.data!=undefined){
+            this.setState({
+              blog_typs_cates: response.data
+            })
+          }
+        })
+        .catch(error => {
+          console.log("", error);
+          message.error("Query Error", error);
+        })
+        .finally();
+  };
   handlephone = (e: any) => {
     const { value } = e.target;
     this.setState({ phone: value });
@@ -100,27 +123,29 @@ export class BlogAdd extends React.Component<any, BlogAddState> {
   };
 
   getSelectionChildren=()=>{
+    const {blog_typs_cates}= this.state;
+    const children = [];
+    for (let i = 0; i < blog_typs_cates.length; i++) {
+      children.push(<Option value={blog_typs_cates[i].blog_type}>{blog_typs_cates[i].blog_type}</Option>);
+    }
     return <Select
-        mode="multiple"
+        mode="tags"
         style={{width: '100%'}}
         placeholder="Select Blog Types"
         onChange={this.handleSelectChange}
-        optionLabelProp="label"
     >
-      <Option value="Personal" label="Personal">
-        Personal(个人）
-      </Option>
-      <Option value="Work" label="Work">
-        Work (工作)
-      </Option>
-      <Option value="Tech" label="Tech">
+      {children}
+{/*      <Option value="个人" label="Personal">*/}
+{/*    个人      </Option>*/}
+{/*      <Option value="网络" label="Network">*/}
+{/*       网络*/}
+{/*      </Option>*/}
+{/*      <Option value="技术" label="Tech">*/}
 
-        Tech (技术)
-      </Option>
-      <Option value="Algorithm" label="Algorithm">
+{/*技术      </Option>*/}
+{/*      <Option value="算法" label="Algorithm">*/}
 
-        Algorithm (算法)
-      </Option>
+{/*算法      </Option>*/}
     </Select>
   };
   render(){
@@ -162,7 +187,8 @@ export class BlogAdd extends React.Component<any, BlogAddState> {
                   </Button>
                 </Row>
               </Col>
-              <Col span={2}></Col>
+              <Col span={2}>
+              </Col>
             </Row>
           </Form.Item>
 

@@ -32,7 +32,6 @@ interface blog {
 export class BlogDetail extends React.Component<any, BlogDetailState> {
   constructor(props: any) {
     super(props);
-    console.log(props.location.search);
     const query_params = URI.parseQuery(props.location.search);
     console.log(props.location.search);
     const id = Number(_.get(query_params, "id", DEFUALT_BLOG_ID));
